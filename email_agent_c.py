@@ -33,7 +33,7 @@ class FinancialEmailAgent:
         self.MAILGUN_DOMAIN = os.getenv('MAILGUN_DOMAIN')
         self.MAILGUN_API_URL = f"https://api.mailgun.net/v3/{self.MAILGUN_DOMAIN}/messages"
         self.MAILGUN_FROM_EMAIL = os.getenv('MAILGUN_FROM_EMAIL')
-        self.RECIPIENT_EMAILS = os.getenv('RECIPIENT_EMAILS', '').split(',')
+        self.RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL', '').split(',')
     
     def get_latest_data(self) -> dict[str, Any]:
         # Fetch the latest entries from eco_info and bc_prices tables in Supabase
@@ -142,7 +142,7 @@ class FinancialEmailAgent:
             print(f"Sending email with:")
             print(f"Subject: {subject}")
             print(f"From: {self.MAILGUN_FROM_EMAIL}")
-            print(f"To: {', '.join(self.RECIPIENT_EMAILS)}")
+            print(f"To: {', '.join(self.RECIPIENT_EMAIL)}")
             print(f"URL: {self.MAILGUN_API_URL}")
             
             response = requests.post(
@@ -150,7 +150,7 @@ class FinancialEmailAgent:
                 auth=HTTPBasicAuth("api", self.MAILGUN_API_KEY),
                 data={
                     "from": self.MAILGUN_FROM_EMAIL,
-                    "to": self.RECIPIENT_EMAILS,  # Mailgun accepts a list of recipients
+                    "to": self.RECIPIENT_EMAIL,  # Mailgun accepts a list of recipients
                     "subject": subject,
                     "text": email_body
                 }
@@ -189,7 +189,7 @@ class FinancialEmailAgent:
             print(f"Sending email with:")
             print(f"Subject: {subject}")
             print(f"From: {self.MAILGUN_FROM_EMAIL}")
-            print(f"To: {', '.join(self.RECIPIENT_EMAILS)}")
+            print(f"To: {', '.join(self.RECIPIENT_EMAIL)}")
             print(f"URL: {self.MAILGUN_API_URL}")
             
             response = requests.post(
