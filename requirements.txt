@@ -2,3 +2,4 @@ openai
 requests
 supabase
 python-dotenv
+PyJWT
